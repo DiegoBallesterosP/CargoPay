@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "CargoPay.Controllers.CardController",
+    "Method": "CreateCard",
+    "RelativePath": "api/cards/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CargoPay.Dtos.CardDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
