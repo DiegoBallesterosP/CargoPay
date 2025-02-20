@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "9gt9IEjdSDgl16oY3PHN6aG+VwUXDI9g+CrvPOANmLQ=",
+  "Source": "CargoPay",
+  "BasePath": "_content/CargoPay",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

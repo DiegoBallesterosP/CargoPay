@@ -1,5 +1,37 @@
 [
   {
+    "ContainingType": "CargoPay.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "CargoPay.Dtos.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CargoPay.Controllers.CardController",
+    "Method": "GetCardBalance",
+    "RelativePath": "api/cards/balance/{cardNumber}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cardNumber",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "CargoPay.Controllers.CardController",
     "Method": "CreateCard",
     "RelativePath": "api/cards/create",
@@ -10,6 +42,22 @@
       {
         "Name": "request",
         "Type": "CargoPay.Dtos.CardDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "CargoPay.Controllers.CardController",
+    "Method": "ProcessPayment",
+    "RelativePath": "api/cards/pay",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "CargoPay.Dtos.PaymentDto",
         "IsRequired": true
       }
     ],

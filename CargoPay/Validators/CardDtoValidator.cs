@@ -13,6 +13,7 @@ namespace CargoPay.Validators
                 .Matches(@"^\d{15}$").WithMessage("El número de tarjeta debe contener solo dígitos.");
 
             RuleFor(x => x.Balance)
+                .GreaterThanOrEqualTo(500000).WithMessage("El saldo inicial debe ser al menos 500,000.")
                 .GreaterThanOrEqualTo(0).WithMessage("El saldo inicial no puede ser negativo.");
         }
     }

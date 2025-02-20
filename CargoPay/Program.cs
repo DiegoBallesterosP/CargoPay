@@ -3,7 +3,6 @@ using CargoPay.Interfaces;
 using CargoPay.Repositories;
 using CargoPay.Services;
 using CargoPay.Validators;
-using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<ICardService, CardService>();
-builder.Services.AddSingleton<IUniversalFeesExchangeService, UniversalFeesExchangeService>();
+builder.Services.AddScoped<IUniversalFeesExchangeService, UniversalFeesExchangeService>(); // Cambiado a Scoped
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 

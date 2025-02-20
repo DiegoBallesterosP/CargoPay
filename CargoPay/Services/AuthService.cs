@@ -21,9 +21,9 @@ namespace CargoPay.Services
         public async Task<string> Authenticate(LoginDto loginDto)
         {
             var user = await _userRepository.GetUserByUsernameAndPassword(loginDto.Username, loginDto.Password);
-
             if (user == null)
                 return null;
+
 
             return GenerateJwtToken(user.Username);
         }
