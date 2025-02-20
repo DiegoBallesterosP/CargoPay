@@ -16,9 +16,10 @@ namespace CargoPay.Services
 
         public async Task<Card> CreateCard(string cardNumber, decimal balance)
         {
-            if (await CardExists(cardNumber))
+            if (await CardExists(cardNumber).ConfigureAwait(false))
+            {
                 throw new InvalidOperationException("Una tarjeta con este número ya existe.");
-
+            }
 
             var card = new Card
             {
@@ -27,47 +28,46 @@ namespace CargoPay.Services
                 IsActive = true
             };
 
-            await _cardRepository.AddCard(card);
+            await _cardRepository.AddCard(card).ConfigureAwait(false);
             return card;
         }
 
         public async Task<bool> CardExists(string cardNumber)
         {
-            return await _cardRepository.CardExists(cardNumber);
+            return await _cardRepository.CardExists(cardNumber).ConfigureAwait(false);
         }
 
         public async Task<bool> ProcessPayment(string cardNumber, decimal amount)
         {
-            var card = await _cardRepository.GetByCardNumber(cardNumber);
-
+            var card = await _cardRepository.GetByCardNumber(cardNumber).ConfigureAwait(false);
             if (card == null)
+            {
                 throw new InvalidOperationException("La tarjeta no existe.");
+            }
 
-            if (!card.IsActive)
-                throw new InvalidOperationException("La tarjeta no está activa.");
-
-            var currentFee = await _feesService.GetCurrentFee();
+            var currentFee = await _feesService.GetCurrentFee().ConfigureAwait(false);
             var feeAmount = amount * (currentFee?.FeePercentage ?? 0);
 
             if (card.Balance < amount + feeAmount)
+            {
                 throw new InvalidOperationException("Saldo insuficiente.");
-
+            }
 
             card.Balance -= (amount + feeAmount);
-            await _cardRepository.UpdateCard(card);
+            await _cardRepository.UpdateCard(card).ConfigureAwait(false);
 
             return true;
         }
 
         public async Task<decimal> GetCardBalance(string cardNumber)
         {
-            var card = await _cardRepository.GetByCardNumber(cardNumber);
+            var card = await _cardRepository.GetByCardNumber(cardNumber).ConfigureAwait(false);
             if (card == null)
+            {
                 throw new InvalidOperationException("La tarjeta no existe.");
-
+            }
 
             return card.Balance;
         }
     }
 }
-

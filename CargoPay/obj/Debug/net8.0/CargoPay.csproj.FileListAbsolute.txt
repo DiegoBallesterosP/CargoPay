@@ -170,3 +170,4 @@ C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\obj\Debug\net8.0\refint\CargoP
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\obj\Debug\net8.0\CargoPay.pdb
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\obj\Debug\net8.0\CargoPay.genruntimeconfig.cache
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\obj\Debug\net8.0\ref\CargoPay.dll
+C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\obj\Debug\net8.0\CargoPay.sourcelink.json

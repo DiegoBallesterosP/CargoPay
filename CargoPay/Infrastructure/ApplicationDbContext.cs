@@ -10,6 +10,7 @@ namespace CargoPay.Infrastructure
         public DbSet<Card> Cards { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<PaymentFee> PaymentFees { get; set; }
+        public DbSet<User> Users { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -18,6 +19,11 @@ namespace CargoPay.Infrastructure
             modelBuilder.Entity<Card>()
                 .HasIndex(c => c.CardNumber)
                 .IsUnique();
+
+            modelBuilder.Entity<Transaction>()
+                .HasOne(t => t.Card)
+                .WithMany(c => c.Transactions)
+                .HasForeignKey(t => t.CardId);
         }
     }
 }

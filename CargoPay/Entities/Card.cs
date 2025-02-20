@@ -9,9 +9,11 @@ namespace CargoPay.Entities
         public int Id { get; set; }
 
         [StringLength(15)]
+        [Required]
         public string CardNumber { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
+        [Required]
         public decimal Balance { get; set; }
 
         public bool IsActive { get; set; }
