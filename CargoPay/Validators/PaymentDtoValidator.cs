@@ -13,8 +13,7 @@ namespace CargoPay.Validators
                 .Matches(@"^\d{15}$").WithMessage("El número de tarjeta debe contener solo dígitos.");
 
             RuleFor(x => x.Amount)
-                .GreaterThan(0).WithMessage("El monto de la transacción debe ser mayor a cero.")
-                .GreaterThanOrEqualTo(0).WithMessage("El monto de la transacción no puede ser negativo.");
+                .GreaterThan(0).WithMessage("El monto de la transacción debe ser mayor a cero.");
         }
     }
 }

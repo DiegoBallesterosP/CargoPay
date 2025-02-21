@@ -45,17 +45,26 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CardDto"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CardDto"
+                }
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/CardDto"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CardDto"
+                }
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/CardDto"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/CardDto"
+                }
               }
             }
           }
@@ -76,17 +85,26 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentDto"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PaymentDto"
+                }
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentDto"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PaymentDto"
+                }
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/PaymentDto"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/PaymentDto"
+                }
               }
             }
           }
@@ -98,21 +116,39 @@
         }
       }
     },
-    "/api/cards/balance/{cardNumber}": {
-      "get": {
+    "/api/cards/balance": {
+      "post": {
         "tags": [
           "Card"
         ],
-        "parameters": [
-          {
-            "name": "cardNumber",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"

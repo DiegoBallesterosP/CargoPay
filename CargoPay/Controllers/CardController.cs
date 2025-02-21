@@ -1,7 +1,11 @@
-﻿using CargoPay.Dtos;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using CargoPay.Dtos;
 using CargoPay.Interfaces;
+using FluentValidation;
+using CargoPay.Entities;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace CargoPay.Controllers
 {
@@ -11,64 +15,99 @@ namespace CargoPay.Controllers
     public class CardController : ControllerBase
     {
         private readonly ICardService _cardService;
+        private readonly IValidator<CardDto> _cardValidator;
+        private readonly IValidator<PaymentDto> _paymentValidator;
 
-        public CardController(ICardService cardService)
+        public CardController(ICardService cardService, IValidator<CardDto> cardValidator, IValidator<PaymentDto> paymentValidator)
         {
             _cardService = cardService;
+            _cardValidator = cardValidator;
+            _paymentValidator = paymentValidator;
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateCard([FromBody] CardDto request)
+        public async Task<IActionResult> CreateCards([FromBody] List<CardDto> requests)
         {
-            try
+            var results = new List<Card>();
+            foreach (var request in requests)
             {
-                var card = await _cardService.CreateCard(request.CardNumber, request.Balance);
-                return Ok(card);
+                var validationResult = await _cardValidator.ValidateAsync(request);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
+                try
+                {
+                    var card = await _cardService.CreateCard(request.CardNumber, request.Balance);
+                    results.Add(card);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"Error al crear la tarjeta: {ex.Message}");
+                }
             }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al crear la tarjeta: {ex.Message}");
-            }
+            return Ok(results);
         }
 
         [HttpPost("pay")]
-        public async Task<IActionResult> ProcessPayment([FromBody] PaymentDto request)
+        public async Task<IActionResult> ProcessPayments([FromBody] List<PaymentDto> requests)
         {
-            try
+            var results = new List<PaymentResultDto>();
+            foreach (var request in requests)
             {
-                var result = await _cardService.ProcessPayment(request.CardNumber, request.Amount);
-                return Ok(result);
+                var validationResult = await _paymentValidator.ValidateAsync(request);
+                if (!validationResult.IsValid)
+                {
+                    return BadRequest(validationResult.Errors);
+                }
+
+                try
+                {
+                    var result = await _cardService.ProcessPayment(request.CardNumber, request.Amount);
+                    results.Add(result);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"Error al procesar el pago: {ex.Message}");
+                }
             }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al procesar el pago: {ex.Message}");
-            }
+            return Ok(results);
         }
 
-        [HttpGet("balance/{cardNumber}")]
-        public async Task<IActionResult> GetCardBalance(string cardNumber)
+        [HttpPost("balance")]
+        public async Task<IActionResult> GetCardBalances([FromBody] List<string> cardNumbers)
         {
-            try
+            var results = new List<object>();
+            foreach (var cardNumber in cardNumbers)
             {
-                var balance = await _cardService.GetCardBalance(cardNumber);
-                return Ok(balance);
+                try
+                {
+                    var balance = await _cardService.GetCardBalance(cardNumber);
+                    results.Add(new
+                    {
+                        CardNumber = cardNumber,
+                        Balance = balance
+                    });
+                }
+                catch (InvalidOperationException ex)
+                {
+                    return BadRequest(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, $"Error al obtener el saldo de la tarjeta: {ex.Message}");
+                }
             }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Error al obtener el saldo de la tarjeta: {ex.Message}");
-            }
+            return Ok(results);
         }
     }
 }

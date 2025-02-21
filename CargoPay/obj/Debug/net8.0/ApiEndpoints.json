@@ -17,15 +17,15 @@
   },
   {
     "ContainingType": "CargoPay.Controllers.CardController",
-    "Method": "GetCardBalance",
-    "RelativePath": "api/cards/balance/{cardNumber}",
-    "HttpMethod": "GET",
+    "Method": "GetCardBalances",
+    "RelativePath": "api/cards/balance",
+    "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "cardNumber",
-        "Type": "System.String",
+        "Name": "cardNumbers",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": true
       }
     ],
@@ -33,15 +33,15 @@
   },
   {
     "ContainingType": "CargoPay.Controllers.CardController",
-    "Method": "CreateCard",
+    "Method": "CreateCards",
     "RelativePath": "api/cards/create",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "CargoPay.Dtos.CardDto",
+        "Name": "requests",
+        "Type": "System.Collections.Generic.List\u00601[[CargoPay.Dtos.CardDto, CargoPay, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],
@@ -49,15 +49,15 @@
   },
   {
     "ContainingType": "CargoPay.Controllers.CardController",
-    "Method": "ProcessPayment",
+    "Method": "ProcessPayments",
     "RelativePath": "api/cards/pay",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "request",
-        "Type": "CargoPay.Dtos.PaymentDto",
+        "Name": "requests",
+        "Type": "System.Collections.Generic.List\u00601[[CargoPay.Dtos.PaymentDto, CargoPay, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": true
       }
     ],

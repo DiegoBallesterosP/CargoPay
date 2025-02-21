@@ -6,5 +6,6 @@ namespace CargoPay.Interfaces
     {
         Task<PaymentFee> GetCurrentFee();
         Task UpdateFee();
+        Task EnsureFeeIsUpToDate();
     }
 }

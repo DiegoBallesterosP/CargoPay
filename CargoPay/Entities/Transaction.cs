@@ -5,7 +5,7 @@ namespace CargoPay.Entities
 {
     public class Transaction
     {
-[Key]
+        [Key]
         public int Id { get; set; }
 
         public int CardId { get; set; }
@@ -23,5 +23,13 @@ namespace CargoPay.Entities
 
         [Required]
         public DateTime TransactionDate { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        [Required]
+        public decimal PreviousBalance { get; set; }
+
+        [StringLength(15)]
+        [Required]
+        public string CardNumber { get; set; }
     }
 }

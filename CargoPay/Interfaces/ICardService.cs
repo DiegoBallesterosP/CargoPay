@@ -1,4 +1,5 @@
-﻿using CargoPay.Entities;
+﻿using CargoPay.Dtos;
+using CargoPay.Entities;
 
 namespace CargoPay.Interfaces
 {
@@ -6,8 +7,7 @@ namespace CargoPay.Interfaces
     {
         Task<Card> CreateCard(string cardNumber, decimal balance);
         Task<bool> CardExists(string cardNumber);
-        Task<bool> ProcessPayment(string cardNumber, decimal amount);
+        Task<PaymentResultDto> ProcessPayment(string cardNumber, decimal amount);
         Task<decimal> GetCardBalance(string cardNumber);
-
     }
 }

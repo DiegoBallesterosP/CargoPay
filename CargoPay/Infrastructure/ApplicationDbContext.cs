@@ -16,6 +16,8 @@ namespace CargoPay.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
+            // Definir relaciones y restricciones adicionales si es necesario
+
             modelBuilder.Entity<Card>()
                 .HasIndex(c => c.CardNumber)
                 .IsUnique();

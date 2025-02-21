@@ -12,18 +12,23 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers()
-    .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CardDtoValidator>());
+    .AddFluentValidation(fv =>
+    {
+        fv.RegisterValidatorsFromAssemblyContaining<CardDtoValidator>();
+        fv.RegisterValidatorsFromAssemblyContaining<PaymentDtoValidator>();
+    });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<ICardRepository, CardRepository>();
 builder.Services.AddScoped<ICardService, CardService>();
-builder.Services.AddScoped<IUniversalFeesExchangeService, UniversalFeesExchangeService>(); // Cambiado a Scoped
+builder.Services.AddSingleton<IUniversalFeesExchangeService, UniversalFeesExchangeService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<IPaymentFeeRepository, PaymentFeeRepository>();
 
 // Configure JWT
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"]);
@@ -65,7 +70,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseRouting();
-
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseHttpsRedirection();
