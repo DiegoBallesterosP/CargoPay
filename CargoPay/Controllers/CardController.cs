@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using CargoPay.Dtos;
 using CargoPay.Interfaces;
 using FluentValidation;
@@ -32,10 +30,9 @@ namespace CargoPay.Controllers
             foreach (var request in requests)
             {
                 var validationResult = await _cardValidator.ValidateAsync(request);
+
                 if (!validationResult.IsValid)
-                {
                     return BadRequest(validationResult.Errors);
-                }
 
                 try
                 {
@@ -61,10 +58,9 @@ namespace CargoPay.Controllers
             foreach (var request in requests)
             {
                 var validationResult = await _paymentValidator.ValidateAsync(request);
-                if (!validationResult.IsValid)
-                {
+                if (!validationResult.IsValid)                
                     return BadRequest(validationResult.Errors);
-                }
+                
 
                 try
                 {
@@ -98,9 +94,13 @@ namespace CargoPay.Controllers
                         Balance = balance
                     });
                 }
-                catch (InvalidOperationException ex)
+                catch (InvalidOperationException)
                 {
-                    return BadRequest(ex.Message);
+                    results.Add(new
+                    {
+                        CardNumber = cardNumber,
+                        Balance = "La tarjeta no existe."
+                    });
                 }
                 catch (Exception ex)
                 {
