@@ -45,7 +45,7 @@ namespace CargoPay.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, $"Error al crear la tarjeta: {ex.Message}");
+                    return StatusCode(500, $"Error creating the card: {ex.Message}");
                 }
             }
             return Ok(results);
@@ -58,9 +58,9 @@ namespace CargoPay.Controllers
             foreach (var request in requests)
             {
                 var validationResult = await _paymentValidator.ValidateAsync(request);
-                if (!validationResult.IsValid)                
+                if (!validationResult.IsValid)
                     return BadRequest(validationResult.Errors);
-                
+
 
                 try
                 {
@@ -73,7 +73,7 @@ namespace CargoPay.Controllers
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, $"Error al procesar el pago: {ex.Message}");
+                    return StatusCode(500, $"Error processing the payment: {ex.Message}");
                 }
             }
             return Ok(results);
@@ -99,12 +99,12 @@ namespace CargoPay.Controllers
                     results.Add(new
                     {
                         CardNumber = cardNumber,
-                        Balance = "La tarjeta no existe."
+                        Balance = "The card does not exist."
                     });
                 }
                 catch (Exception ex)
                 {
-                    return StatusCode(500, $"Error al obtener el saldo de la tarjeta: {ex.Message}");
+                    return StatusCode(500, $"Error retrieving the card balance: {ex.Message}");
                 }
             }
             return Ok(results);

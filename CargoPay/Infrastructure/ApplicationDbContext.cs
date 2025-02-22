@@ -16,8 +16,6 @@ namespace CargoPay.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            // Definir relaciones y restricciones adicionales si es necesario
-
             modelBuilder.Entity<Card>()
                 .HasIndex(c => c.CardNumber)
                 .IsUnique();
@@ -26,6 +24,13 @@ namespace CargoPay.Infrastructure
                 .HasOne(t => t.Card)
                 .WithMany(c => c.Transactions)
                 .HasForeignKey(t => t.CardId);
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique()
+                .HasDatabaseName("IX_Users_Username")
+                .HasFilter("[Username] IS NOT NULL")
+                .IsUnique();
         }
     }
 }

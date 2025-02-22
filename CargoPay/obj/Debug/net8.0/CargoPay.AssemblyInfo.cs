@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CargoPay")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16dae1d203fe164dd0510b2d0e6e52bb2f48ae50")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+56ce41724126b9e5ad00fd9283e727540bc08f7c")]
 [assembly: System.Reflection.AssemblyProductAttribute("CargoPay")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CargoPay")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

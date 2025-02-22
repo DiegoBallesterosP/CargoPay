@@ -22,9 +22,8 @@ namespace CargoPay.Services
             await _feesService.EnsureFeeIsUpToDate();
 
             if (await CardExists(cardNumber).ConfigureAwait(false))
-            {
-                throw new InvalidOperationException("Una tarjeta con este número ya existe.");
-            }
+                throw new InvalidOperationException("A card with this number already exists.");
+
 
             var card = new Card
             {
@@ -48,17 +47,15 @@ namespace CargoPay.Services
 
             var card = await _cardRepository.GetByCardNumber(cardNumber).ConfigureAwait(false);
             if (card == null)
-            {
-                return new PaymentResultDto { Success = false, Message = "La tarjeta no existe." };
-            }
+                return new PaymentResultDto { Success = false, Message = "The card does not exist." };
+
 
             var currentFee = await _feesService.GetCurrentFee().ConfigureAwait(false);
             var feeAmount = amount * (currentFee?.FeePercentage ?? 0);
 
             if (card.Balance < amount + feeAmount)
-            {
-                return new PaymentResultDto { Success = false, Message = "Saldo insuficiente." };
-            }
+                return new PaymentResultDto { Success = false, Message = "Insufficient balance." };
+
 
             var previousBalance = card.Balance;
 
@@ -77,16 +74,15 @@ namespace CargoPay.Services
 
             await _transactionRepository.AddTransaction(transaction).ConfigureAwait(false);
 
-            return new PaymentResultDto { Success = true, Message = "Pago exitoso." };
+            return new PaymentResultDto { Success = true, Message = "Payment successful." };
+
         }
 
         public async Task<decimal> GetCardBalance(string cardNumber)
         {
             var card = await _cardRepository.GetByCardNumber(cardNumber).ConfigureAwait(false);
             if (card == null)
-            {
-                throw new InvalidOperationException("La tarjeta no existe.");
-            }
+                throw new InvalidOperationException("The card does not exist.");
 
             return card.Balance;
         }

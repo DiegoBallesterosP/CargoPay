@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "0qmBoDYnWe0=",
+  "dgSpecHash": "rY13L2wZE8s=",
   "success": true,
   "projectFilePath": "C:\\Users\\diego\\Desktop\\CargoPay\\CargoPay\\CargoPay\\CargoPay.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\diego\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\diego\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
     "C:\\Users\\diego\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",

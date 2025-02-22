@@ -8,6 +8,7 @@ C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\CargoPay.dll
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\CargoPay.pdb
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\Azure.Identity.dll
+C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\BCrypt.Net-Next.dll
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\FluentValidation.dll
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 C:\Users\diego\Desktop\CargoPay\CargoPay\CargoPay\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll

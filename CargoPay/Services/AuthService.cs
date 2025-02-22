@@ -1,8 +1,10 @@
 ﻿using CargoPay.Dtos;
+using CargoPay.Entities;
 using CargoPay.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace CargoPay.Services
@@ -20,13 +22,42 @@ namespace CargoPay.Services
 
         public async Task<string> Authenticate(LoginDto loginDto)
         {
-            var user = await _userRepository.GetUserByUsernameAndPassword(loginDto.Username, loginDto.Password);
-            if (user == null)
+            try
             {
-                return null;
-            }
+                var hashedPassword = HashPassword(loginDto.Password);
+                var user = await _userRepository.GetUserByUsernameAndPassword(loginDto.Username.ToLower(), hashedPassword);
+                if (user == null)
+                    return null;
 
-            return GenerateJwtToken(user.Username);
+                return GenerateJwtToken(user.Username);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error during authentication.", ex);
+            }
+        }
+
+        public async Task<string> CreateUser(LoginDto userDto)
+        {
+            try
+            {
+                if (await _userRepository.UserExists(userDto.Username))
+                    throw new InvalidOperationException("Username already exists.");
+
+                var hashedPassword = HashPassword(userDto.Password);
+                var user = new User
+                {
+                    Username = userDto.Username.ToLower(),
+                    Password = hashedPassword
+                };
+
+                await _userRepository.AddUser(user);
+                return "User created successfully.";
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException("Error creating user.", ex);
+            }
         }
 
         private string GenerateJwtToken(string username)
@@ -47,6 +78,16 @@ namespace CargoPay.Services
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        private string HashPassword(string password)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+                var hash = BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                return hash.Substring(0, 30);
+            }
         }
     }
 }

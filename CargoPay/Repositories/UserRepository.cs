@@ -17,7 +17,19 @@ namespace CargoPay.Repositories
         public async Task<User> GetUserByUsernameAndPassword(string username, string password)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+                .FirstOrDefaultAsync(u => u.Username.ToLower() == username.ToLower() && u.Password == password);
+        }
+
+        public async Task<bool> UserExists(string username)
+        {
+            return await _context.Users
+                .AnyAsync(u => u.Username.ToLower() == username.ToLower());
+        }
+
+        public async Task AddUser(User user)
+        {
+            await _context.Users.AddAsync(user);
+            await _context.SaveChangesAsync();
         }
     }
 }
